@@ -35,12 +35,18 @@ void setup() {
 void loop() {
 
   if (digitalRead(subir) == LOW) {
-    tone(buzzer, 100, 1000);
     val++;
+    while (digitalRead(subir) == LOW) {
+      tone(buzzer, 100);
+    }
+    noTone(buzzer);
   }
   if (digitalRead(bajar) == LOW) {
-    tone(buzzer, 100, 1000);
     val--;
+    while (digitalRead(bajar) == LOW) {
+      tone(buzzer, 100);
+    }
+    noTone(buzzer);
   }
   if (val > 7) {
     val = 7;
@@ -51,8 +57,10 @@ void loop() {
   showVel(val);
 
   if (digitalRead(start) == LOW) {
-    tone(buzzer, 100, 1000);
     Vels(val);
+    tone(buzzer, 100);
+    delay(500);
+    noTone(buzzer);
   }
 }
 

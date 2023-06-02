@@ -1,12 +1,12 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
-LiquidCrystal_I2C lcd(0x20, 16, 2);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 const int pin1 = 7;
 const int pin2 = 8;
 const int pin3 = 9;
-const int start = 10;
-const int subir = 11;
+const int start = 11;
+const int subir = 10;
 const int bajar = 12;
 const int buzzer = 13;
 
@@ -18,12 +18,18 @@ void setup() {
   pinMode(pin2, OUTPUT);
   pinMode(pin3, OUTPUT);
   pinMode(buzzer, OUTPUT);
-  pinMode(start, INPUT_PULLUP);
-  pinMode(subir, INPUT_PULLUP);
-  pinMode(bajar, INPUT_PULLUP);
+  pinMode(start, INPUT);
+  pinMode(subir, INPUT);
+  pinMode(bajar, INPUT);
   Serial.begin(9600);
   lcd.init();
   lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("Epsilon A.E");
+  lcd.setCursor(0, 1);
+  lcd.print("0414-7283876");
+  delay(4000);
+  lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("   Control de");
   lcd.setCursor(0, 1);
@@ -34,17 +40,17 @@ void setup() {
 
 void loop() {
 
-  if (digitalRead(subir) == LOW) {
+  if (digitalRead(subir) == HIGH) {
     val++;
-    while (digitalRead(subir) == LOW) {
-      tone(buzzer, 100);
+    while (digitalRead(subir) == HIGH) {
+      tone(buzzer, 3000);
     }
     noTone(buzzer);
   }
-  if (digitalRead(bajar) == LOW) {
+  if (digitalRead(bajar) == HIGH) {
     val--;
-    while (digitalRead(bajar) == LOW) {
-      tone(buzzer, 100);
+    while (digitalRead(bajar) == HIGH) {
+      tone(buzzer, 3000);
     }
     noTone(buzzer);
   }
@@ -56,10 +62,10 @@ void loop() {
   Serial.println(val);
   showVel(val);
 
-  if (digitalRead(start) == LOW) {
+  if (digitalRead(start) == HIGH) {
     Vels(val);
-    tone(buzzer, 100);
-    delay(500);
+    tone(buzzer, 3000);
+    delay(1000);
     noTone(buzzer);
   }
 }
@@ -70,43 +76,43 @@ void showVel(int x) {
 
     case 0:
       lcd.setCursor(0, 0);
-      lcd.print("OFF");
+      lcd.print("  Velocidad: 0"  );
       lcd.print("        ");
       break;
 
     case 1:
       lcd.setCursor(0, 0);
-      lcd.print("Velocidad 1");
+      lcd.print("  Velocidad: 1  ");
       break;
 
     case 2:
       lcd.setCursor(0, 0);
-      lcd.print("Velocidad 2");
+      lcd.print("  Velocidad: 2  ");
       break;
 
     case 3:
       lcd.setCursor(0, 0);
-      lcd.print("Velocidad 3");
+      lcd.print("  Velocidad: 3  ");
       break;
 
     case 4:
       lcd.setCursor(0, 0);
-      lcd.print("Velocidad 4");
+      lcd.print("  Velocidad: 4  ");
       break;
 
     case 5:
       lcd.setCursor(0, 0);
-      lcd.print("Velocidad 5");
+      lcd.print("  Velocidad: 5  ");
       break;
 
     case 6:
       lcd.setCursor(0, 0);
-      lcd.print("Velocidad 6");
+      lcd.print("  Velocidad: 6  ");
       break;
 
     case 7:
       lcd.setCursor(0, 0);
-      lcd.print("Velocidad 7");
+      lcd.print("  Velocidad: 7  ");
       break;
   }
 }

@@ -5,9 +5,9 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 const int pin1 = 7;
 const int pin2 = 8;
 const int pin3 = 9;
-const int start = 11;
-const int subir = 10;
-const int bajar = 12;
+const int start = 10;
+const int subir = 12;
+const int bajar = 11;
 const int buzzer = 13;
 
 int val = 0;
